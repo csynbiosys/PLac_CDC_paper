@@ -1,9 +1,9 @@
 results_folder = strcat('GalOpenLoop1',datestr(now,'yyyy-mm-dd-HHMMSS'));
-short_name     = 'galOL1';
+short_name     = 'PLac12';
 
 inputs.pathd.results_folder = results_folder;
 inputs.pathd.short_name     = short_name;
-inputs.pathd.runident       = 'initial_setup';
+inputs.pathd.runident       = 'Identifiability analysis';
 
 inputs.model=Model_OpenLoop_BestFit_George1();
 inputs=loadExperimentSettings_George1(inputs);

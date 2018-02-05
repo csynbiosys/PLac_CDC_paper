@@ -1,4 +1,4 @@
-function inputs = loadExperimentSettings_George1(inputs)
+function inputs = loadExperimentSettings_Lucia_George(inputs)
 %steplength=50;
 
 %Run a basic simulation - here we start in steady state and add gal1
@@ -11,11 +11,11 @@ inputs.exps.n_exp = 2*L;  % 1st set begin with 36h of 0muM, 2nd set begin with 3
 for i=1:inputs.exps.n_exp
     
     inputs.exps.n_obs{i}=1;                                        % Number of observed quantities per experiment
-    inputs.exps.obs_names{i}=char('CitrineAU');      % Name of the observed quantities per experiment
-    inputs.exps.obs{i}=char('CitrineAU=Citrine*scmolec/492');            % Observation function
+    inputs.exps.obs_names{i} = char('Fluorescence');
+    inputs.exps.obs{i} = char('Fluorescence = Cit_AU');
     
     
-    inputs.exps.exp_y0{i}=InitialConditions_Gal(0,0);           % Initial conditions with 'correct' parameters
+    inputs.exps.exp_y0{i}=PLac_Compute_SteadyState_Lucia(inputs.model.par,0);
     inputs.exps.t_f{i}=(36+48)*60*60;         % Experiment duration
     inputs.exps.n_s{i}=5;% Number of sampling times
     inputs.exps.t_s{i}=36:12:(36+48);      % times of samples

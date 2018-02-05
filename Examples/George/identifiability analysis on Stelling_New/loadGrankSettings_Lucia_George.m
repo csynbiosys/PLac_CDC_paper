@@ -1,4 +1,4 @@
-function inputs = loadGrankSettings_George1(inputs)
+function inputs = loadGrankSettings_Lucia_George(inputs)
 %==================================
 % UNKNOWNS RELATED DATA
 %==================================
@@ -6,29 +6,14 @@ function inputs = loadGrankSettings_George1(inputs)
 % GLOBAL UNKNOWNS (SAME VALUE FOR ALL EXPERIMENTS)
 
 include=true(1,inputs.model.n_par);
-include([15,16])=false;
+include([3,10])=false;
 
 inputs.PEsol.id_global_theta=inputs.model.par_names(include,:);                         % 'all'|User selected 
 
+%  'kLacI','k2','kd','km2','k1','km1','kLac12','kTP1','kcat','Km','kout','kC','lk','sc_molec'; 
 
-kd=inputs.model.par(end);
-minmax=[1e-10,1;
-    7.75e-5,1;
-    1e-10,1;
-    kd,1;
-    0.001,1;
-    1e-10,0.1;
-    1,1e4;
-    1,1e4;
-    0.001,1;
-    0.001,1;
-    0.0005,0.0017;
-    0.5,2;
-    0.5,2;
-    10,100]';
-
-inputs.PEsol.global_theta_min=minmax(1,:);       % Minimum allowed values for the parameters
-inputs.PEsol.global_theta_max=minmax(2,:);    % Maximum allowed values for the paramters
+inputs.PEsol.global_theta_min=[0.001,1e-10,7.75e-5 ,1e-10, 7.75e-5, 0.001, 5e-4, 1, 1,0.001, 1e-10,10];       % Minimum allowed values for the parameters
+inputs.PEsol.global_theta_max=[1,1,1, 1, 1, 1, 1.7e-3, 1e4, 1000, 1, 1,100];   % Maximum allowed values for the paramters
 inputs.PEsol.global_theta_guess=inputs.model.par(include);    
 
 

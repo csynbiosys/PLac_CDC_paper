@@ -9,7 +9,7 @@ IPTGextValues_input=IPTGext;
 
 for iexp=1:y0_input.exps.n_exp
     
-    y0_input.exps.exp_y0{iexp}=[0 1 0 0 0 0 0 0 0 0 0];   %Initial conditions for each experiment
+    y0_input.exps.exp_y0{iexp}= Stelling_model_steady_state(model.par,IPTGext);  %Initial conditions for each experiment
     y0_input.exps.t_f{iexp}=24*60*60;                            %Experiment is run for a 24 hour duration
     
     y0_input.exps.u_interp{iexp}='sustained';               %Stimuli definition for experiment 1:

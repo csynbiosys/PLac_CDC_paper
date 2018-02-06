@@ -1,7 +1,6 @@
-function [exps] = load_ramp_input_experiment(number_of_replicates_per_input_class,model)
+function [exps] = load_ramp_down_experiment(number_of_replicates_per_input_class,model)
 % This function loads the experimental setup necessary to apply a ramp
 % input to the stelling model.
-
 
 % Based on experimental data described in Stelling paper, the bounds
 % for IPTGext values to be picked from are
@@ -12,29 +11,26 @@ upper_bound=1000;
 % y0_init=Stelling_model_steady_state(model.par,IPTGext_max); % using 0 here as initial IPTGext value has been fixed to 0.
 y0_init= get_steady_state_from_simulation(model,lower_bound);
 
-
 for iexp=1:number_of_replicates_per_input_class
-     
-    rng shuffle
 
+    % Shuffle the seed stream for rand
+    rng shuffle
+      
     % Randomly choose the maximum IPTGext value to be used in the experiment
-    IPTGext_max=(lower_bound+(upper_bound-lower_bound)).*rand(1,1);
+    IPTGext_max=(lower_bound+(upper_bound-lower_bound)).*rand(1,1); % 130.630906886299; 
     
     % switching time
-    switching_time=250*60;                        % 250 minutes in seconds
-    
+    switching_time=250*60;                        % 50 minutes in seconds
+       
     % number of steps
-    total_num_steps=(3000*60)/switching_time;
-     
-    % half_point of the experiment
-    t_half=3000*60/2;                           % Time in seconds
+    num_steps=(3000*60)/switching_time;
     
     % Input step size
-    ramp_step_size=IPTGext_max/total_num_steps*2;
+    ramp_down_step_size = -IPTGext_max/num_steps;
     
     % input IPTGext to the system with ramp up and ramp down
-    IPTGext_values=[(0:ramp_step_size:IPTGext_max),(IPTGext_max-ramp_step_size:-ramp_step_size:0)];
-    
+    IPTGext_values=[IPTGext_max:ramp_down_step_size:0];
+     
     % Setting up input related parameters
     
     exps.exp_type{iexp} = 'fixed';
@@ -42,13 +38,13 @@ for iexp=1:number_of_replicates_per_input_class
     exps.t_f{iexp}      = 3000*60;
     exps.t_con{iexp}    = (0:switching_time:exps.t_f{iexp});                       % Input swithching times: Initial and final time
     exps.t_s{iexp}      = (0:switching_time:exps.t_f{iexp});                                   % sampling time is 5 minutes (5X60=300 seconds)
-    exps.n_s{iexp}      = length((0:switching_time:exps.t_f{iexp}));                                % Number of sampling times
+    exps.n_s{iexp}      = length(0:switching_time:exps.t_f{iexp});                                % Number of sampling times
     exps.exp_y0{iexp}   = y0_init;                                       %initial values of all states in the model
-    exps.n_steps{iexp}  = total_num_steps;
+    exps.n_steps{iexp}  = num_steps;
     exps.u{iexp}        = IPTGext_values;                                                   % Values of the inputs
-    
-    exps.u_min{iexp}=0;   
-    exps.u_max{iexp}=IPTGext_max;         % Bounds for the stimuli in the current experiment
+   
+    exps.u_min{iexp}    = 0;    
+    exps.u_max{iexp}    = IPTGext_max;         % Bounds for the stimuli in the current experiment
 
     
     %% Observable details

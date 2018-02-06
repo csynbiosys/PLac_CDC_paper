@@ -7,15 +7,15 @@ function inputs = loadExperimentSettings_Lucia_George(inputs)
 testIPTG=[0,2.5,5,7.5,10,15,20,25,35,50,100,1000];
 L=length(testIPTG);
 inputs.exps.n_exp = 2*L;  % 1st set begin with 36h of 0muM, 2nd set begin with 36h of 1000muM
-
+y0=PLac_Compute_SteadyState_Lucia(inputs.model.par,0);
 for i=1:inputs.exps.n_exp
     
     inputs.exps.n_obs{i}=1;                                        % Number of observed quantities per experiment
     inputs.exps.obs_names{i} = char('Fluorescence');
     inputs.exps.obs{i} = char('Fluorescence = Cit_AU');
     
-    
-    inputs.exps.exp_y0{i}=PLac_Compute_SteadyState_Lucia(inputs.model.par,0);
+     
+    inputs.exps.exp_y0{i}=y0;
     inputs.exps.t_f{i}=(36+48)*60*60;         % Experiment duration
     inputs.exps.n_s{i}=5;% Number of sampling times
     inputs.exps.t_s{i}=36:12:(36+48);      % times of samples

@@ -37,7 +37,7 @@ G22 = ((L0/K1)^2)*G20;
 
 
 Citrine_molec = (kC*G20+lk*kC*(G21+G22))/kd; 
-Citrine_AU=Citrine_molec*scaleMolec;
+Citrine_AU    =  Citrine_molec*scaleMolec;
 
 ss_values = [L0 L1 L2 Lac12 Lac12m G20 G21 G22 IPTGi Citrine_molec Citrine_AU];
 

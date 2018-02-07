@@ -17,9 +17,9 @@ exps.u{1}        = IPTGext_initial;                                             
 exps.n_exp       = 1;
 
 %% Folder where results will be stored
-ss.pathd.results_folder     ='pseudo_expData_ss_data';         % Folder to keep results (in Results) for a given problem          
-ss.pathd.short_name         ='stelling_exp_ss_Data';                      % To identify figures and reports for a given problem   
-ss.pathd.runident           =strcat('SData_stelling_',int2str(10));      % [] Identifier required in order not to overwrite previous results
+ss.pathd.results_folder     = 'pseudo_expData_ss_data';         % Folder to keep results (in Results) for a given problem          
+ss.pathd.short_name         = 'stelling_exp_ss_Data';                      % To identify figures and reports for a given problem   
+ss.pathd.runident           = strcat('SData_stelling_',int2str(10));      % [] Identifier required in order not to overwrite previous results
 
 
 % NUMERICAL METHODS RELATED DATA

@@ -1,3 +1,5 @@
+function [model] = Stelling_open_loop_model_SD()
+
 %======================
 % MODEL RELATED DATA
 %======================
@@ -45,4 +47,5 @@ kd    = 7.75e-5;    Km         = 2800;
 
 
 model.par=[kLacI k1 k_1 k2 k_2 kLac12 kC lk kd kTP1 kcat kout Km scaleMolec]; % These values may be updated during optimization  
-                                   
+
+end                                 

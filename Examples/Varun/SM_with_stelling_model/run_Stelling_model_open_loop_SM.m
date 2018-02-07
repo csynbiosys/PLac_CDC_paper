@@ -10,7 +10,7 @@ Stelling_model_open_loop_SM                 % Calls the script with the inputs:
 
                                                
 % prevent display of plots when running the script. 
-inputs.plotd.plotlevel='noplot';                % can also take values max,medium,min,noplot
+inputs.plotd.plotlevel='full';                % can also take values max,medium,min,noplot
                                                
 
 AMIGO_Prep(inputs)         % Calls the task for pre-processing

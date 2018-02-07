@@ -17,7 +17,8 @@ for iexp=1:number_of_replicates_per_input_class
      
     % Randomly choose the maximum IPTGext value to be used in the experiment
     IPTGext_max=(lower_bound+(upper_bound-lower_bound)).*rand(1,1);
-    
+
+        
     % switching time
     switching_time=250*60;                        % 250 minutes in seconds
          

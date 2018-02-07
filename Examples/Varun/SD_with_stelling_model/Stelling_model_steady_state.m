@@ -1,18 +1,17 @@
 function [ss_values] = Stelling_model_steady_state(theta,IPTGe)
 % Steady state expressions for variables in Stelling model
 
-
 kLacI = theta(1);
 k1 = theta(2);
 k_1 = theta(3);
 k2 = theta(4);
 k_2 = theta(5);
-kC = theta(6);
-lk = theta(7);
-kd = theta(8);
-kTP1 = theta(9);
-kcat= theta(10);
-kLac12 = theta(11);
+kLac12 = theta(6);
+kC = theta(7);
+lk = theta(8);
+kd = theta(9);
+kTP1 = theta(10);
+kcat= theta(11);
 kout = theta(12);
 Km = theta(13);
 scaleMolec=theta(14);
@@ -40,7 +39,6 @@ G22 = ((L0/K1)^2)*G20;
 Citrine_molec = (kC*G20+lk*kC*(G21+G22))/kd; 
 Citrine_AU=Citrine_molec*scaleMolec;    % Citrine in Arbitrary Units
 
-ss_values = [L0 L1 L2 Lac12 Lac12m G20 G21 G22 IPTGi Citrine_molec Citrine_AU];
-
+ss_values = [L0 G20 G21 G22 Lac12 Lac12m IPTGi L1 L2 Citrine_molec Citrine_AU];
 end
 

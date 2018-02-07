@@ -82,7 +82,7 @@ inputs.exps.n_exp = length(IPTGextValues_input);                                
  for iexp=1:inputs.exps.n_exp   
  
  inputs.exps.exp_y0{iexp}=[0 1 0 0 0 0 0 0 0 0];  %Initial conditions for each experiment          
- inputs.exps.t_f{iexp}=2*24*60*60;                            %Experiments duration
+ inputs.exps.t_f{iexp}=24*60*60;                            %Experiments duration
  
  inputs.exps.u_interp{iexp}='sustained';               %Stimuli definition for experiment 1:
                                                        %OPTIONS:u_interp: 'sustained' |'step'|'linear'(default)|'pulse-up'|'pulse-down' 

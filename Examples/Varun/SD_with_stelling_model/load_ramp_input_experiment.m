@@ -2,31 +2,33 @@ function [exps] = load_ramp_input_experiment(number_of_replicates_per_input_clas
 % This function loads the experimental setup necessary to apply a ramp
 % input to the stelling model.
 
-
 % Based on experimental data described in Stelling paper, the bounds
 % for IPTGext values to be picked from are
-lower_bound=0; 
-upper_bound=1000;
+lower_bound=0;              upper_bound=1000;
 
-% Calculate Initial values of the variables in the model
-% y0_init=Stelling_model_steady_state(model.par,IPTGext_max); % using 0 here as initial IPTGext value has been fixed to 0.
-y0_init= get_steady_state_from_simulation(model,lower_bound);
+% Calculate Initial values of the variables in the model using 0 here as initial IPTGext 0.
+y0_init= get_steady_state_from_simulation(model,0);
 
 
 for iexp=1:number_of_replicates_per_input_class
      
     % Randomly choose the maximum IPTGext value to be used in the experiment
-    IPTGext_max=(lower_bound+(upper_bound-lower_bound)).*rand(1,1);
+    IPTGext_max=(lower_bound+(upper_bound-lower_bound))*rand(1,1);
 
-        
-    % switching time
-    switching_time=250*60;                        % 250 minutes in seconds
-         
-    % half_point of the experiment
-    t_half=3000*60/2;                           % Time in seconds
+    % Response time from our examination of the Stelling model
+    response_time=60*60; 
     
-    % number of steps
-    total_num_steps=(t_half*2/switching_time);
+    % randomly pick switching times to be either 60 or 120 or 180
+    %switching_time_options=[60*60 120 180*60];%[60*60 120*60 180*60];
+    
+    % switching time
+    switching_time= response_time;%switching_time_options(randi([1,3],1));                      % 250 minutes in seconds
+    
+    % duration of simulation 
+    t_d=3000*60;
+   
+    % number of steps to reach half_point of the experiment
+    total_num_steps=(t_d/switching_time);
 
     % Input step size
     ramp_step_size=IPTGext_max/((total_num_steps/2)-1);
@@ -38,10 +40,10 @@ for iexp=1:number_of_replicates_per_input_class
     
     exps.exp_type{iexp} = 'fixed';
     exps.u_interp{iexp} = 'step';                               %OPTIONS:u_interp: 'sustained' |'step'|'linear'(default)|'pulse-up'|'pulse-down'
-    exps.t_f{iexp}      = t_half*2;
+    exps.t_f{iexp}      = t_d;
     exps.t_con{iexp}    = (0:switching_time:exps.t_f{iexp});                       % Input swithching times: Initial and final time
     exps.t_s{iexp}      = (0:switching_time:exps.t_f{iexp});                                   % sampling time is 5 minutes (5X60=300 seconds)
-    exps.n_s{iexp}      = length((0:switching_time:exps.t_f{iexp}));                                % Number of sampling times
+    exps.n_s{iexp}      = length(0:switching_time:exps.t_f{iexp});                                % Number of sampling times
     exps.exp_y0{iexp}   = y0_init;                                       %initial values of all states in the model
     exps.n_steps{iexp}  = total_num_steps;
     exps.u{iexp}        = IPTGext_values;                                                   % Values of the inputs
@@ -63,8 +65,7 @@ for iexp=1:number_of_replicates_per_input_class
                         
     % % Adding noise to simulated data 
     % % Definining experimental noise 
-    exps.std_dev{iexp}(1,:)= ones(1,2)*0.1;             % 10% noise
-    
+    exps.std_dev{iexp}(1,:)= ones(1,2)*0.1;             % 10% noise 
     exps.data_type ='pseudo_pos';                   % Type of data: 'pseudo'|'pseudo_pos'|'real'             
     exps.noise_type ='homo_var';                % the noise is constant for each experiment. 
 

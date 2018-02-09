@@ -30,6 +30,7 @@ B=1e-15;
     end
    
     if inputs.exps.n_s{iexp} >= ntplot_def
+        
         inputs.plotd.n_t_plot=inputs.exps.n_s{iexp};
         if (isempty(inputs.exps.t_s{iexp})==1)
             privstruct.t_int{iexp}=linspace(inputs.exps.t_in{iexp},privstruct.t_f{iexp},inputs.plotd.n_t_plot-1);

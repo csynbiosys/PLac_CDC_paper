@@ -58,12 +58,21 @@ for iexp=1:number_of_replicates_per_input_class
     % Observables definition
     exps.obs{iexp}=char('Citrine_molec=Cit','Citrine_AU=Cit_AU');
                         
-    % % Adding noise to simulated data 
-    % % Definining experimental noise 
-    exps.std_dev{iexp}(1,:)= ones(1,2)*0.1;             % 10% noise
-    
-    exps.data_type ='pseudo_pos';                   % Type of data: 'pseudo'|'pseudo_pos'|'real'             
-    exps.noise_type ='homo_var';                % the noise is constant for each experiment. 
+    % % Defining experimental noise 
+  
+    % Load standard deviations calculated 
+    inputs.exps.noise_type = 'hetero';
+    inputs.exps.error_data{1} = 0.1* [
+		98.7655  0.405133  0.0  0.143161  0.379067 
+		93.6304  10.1338  3.28087  0.796575  0.836232
+		79.8872  14.7635  5.90562  -0.447055  6.26825
+		65.9462  37.7563  5.93682  0.31603  8.22038
+		72.8602  36.1093  5.77506  0.717804  6.05675
+		39.5912  55.4115  5.64632  1.15495  10.1966
+		19.2677  39.8579  5.35577  2.53723  18.5619
+		10.70984  53.0364  4.70818  2.77677  23.4239
+		9.27474  62.2922  4.64648  3.478  22.7581
+		];
 
     
 end

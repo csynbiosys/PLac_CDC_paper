@@ -5,24 +5,36 @@ function [exps] = load_pulse_input_experiment(number_of_replicates_per_input_cla
 
 % Calculate Initial values of the variables in the model
 % y0_init=Stelling_model_steady_state(model.par,IPTGext_max); % using 0 here as initial IPTGext value has been fixed to 0.
-y0_init= get_steady_state_from_simulation(model, 0);
+y0_init= get_steady_state_from_simulation(model);
 
 
 for iexp=1:number_of_replicates_per_input_class
-
 
     % Randomly choosing the maximum IPTGext value to be used in the experiment
     IPTGext_min= randi([0 1000],1,1);
 
     % Randomly choosing the maximum IPTGext value to be used in the experiment
     IPTGext_max= randi([0 1000],1,1);    
-    
+
+    % to avoid choosing same minimum and maximum IPTG values,pick another
+    % value
+    if (IPTGext_min==IPTGext_max)
+       while (IPTGext_max == IPTGext_min)
+                % Randomly choosing the maximum IPTGext value to be used in the experiment
+                IPTGext_min= randi([0 1000],1,1);
+
+                % Randomly choosing the maximum IPTGext value to be used in the experiment
+                IPTGext_max= randi([0 1000],1,1);    
+       end 
+    end
+        
   % Setting up input related parameters   
     exps.exp_type{iexp} = 'fixed';
     exps.t_f{iexp}      = 3000*60;
-    exps.n_s{iexp}      = exps.t_f{iexp}/(5*60);                                % Number of sampling times
+    exps.n_s{iexp}      = length(0:5*60:exps.t_f{iexp});                                % Number of sampling times
     exps.exp_y0{iexp}   = y0_init;                                       %initial values of all states in the model
-    
+    exps.t_s{iexp}      = (0:5*60:exps.t_f{iexp});                  % Sampling every 5 minutes. 
+        
     % set if the experiment has to be a pulse-up or pulse-down     
     if(IPTGext_min > IPTGext_max)
         exps.u_interp{iexp} = 'pulse-down';                               %OPTIONS:u_interp: 'sustained' |'step'|'linear'(default)|'pulse-up'|'pulse-down'
@@ -44,22 +56,14 @@ for iexp=1:number_of_replicates_per_input_class
     %% Observable details
     
     % number of observables
-    exps.n_obs{iexp}=2;                             
+    exps.n_obs{iexp}=1;                             
     
     % names of observables
-    exps.obs_names{iexp}=char('Citrine_molec','Citrine_AU');
+    exps.obs_names{iexp}=char('Citrine_molec');
     
     % Observables definition
-    exps.obs{iexp}=char('Citrine_molec=Cit','Citrine_AU=Cit_AU');
+    exps.obs{iexp}=char('Citrine_molec=Cit');
                         
-    % % Adding noise to simulated data 
-    % % Definining experimental noise 
-    exps.std_dev{iexp}(1,:)= ones(1,2)*0.1;             % 10% noise
-    
-    exps.data_type ='pseudo_pos';                   % Type of data: 'pseudo'|'pseudo_pos'|'real'             
-    exps.noise_type ='homo_var';                % the noise is constant for each experiment. 
-
-    
 end
 
 

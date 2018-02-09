@@ -2,7 +2,7 @@
 % Author: Varun Kothamachu
 
 %% Loading model with fitted parameters
-model=Stelling_open_loop_model_SD();
+model=Stelling_open_loop_model();
 
 
 %% Setting up Experiment for Input_classes=['step','ramp','pseudo-random','pulse'];
@@ -12,7 +12,7 @@ number_of_replicates_per_input_class=3;
 % exps=load_ramp_input_experiment(number_of_replicates_per_input_class,model);         % 3 experiments implementing a ramp input
 exps=load_step_input_experiment(number_of_replicates_per_input_class,model);         % 3 experiments implementing a step input
 % exps=load_pulse_input_experiment(number_of_replicates_per_input_class,model);           % 3 experiments implementing a pulse input
-%exps=load_pseudorandom_input_experiment(number_of_replicates_per_input_class,model);          % Create 3 experiments implementing a pseudo random input
+% exps=load_pseudorandom_input_experiment(number_of_replicates_per_input_class,model);          % Create 3 experiments implementing a pseudo random input
 
 %storing information about the number of experiments
 exps.n_exp=number_of_replicates_per_input_class;
@@ -28,18 +28,30 @@ inputs.ivpsol.senssolver='cvodes';                    % [] Sensitivities solver:
 inputs.ivpsol.rtol=1.0e-7;                            % [] IVP solver integration tolerances
 inputs.ivpsol.atol=1.0e-7; 
 
+
 % Populating inputs with model and experimental design
 inputs.exps=exps;
 inputs.model=model;
 
+% Load standard deviations calculated from author submitted experimental data 
+load std_dev_all_exp.mat
+
+% Defining experimental noise
+inputs.exps.data_type = 'pseudo_pos';
+inputs.exps.noise_type = 'hetero';
+inputs.exps.error_data{1} = std_dev.step(:,1);
+inputs.exps.error_data{2} = std_dev.step(:,2);
+inputs.exps.error_data{3} = std_dev.step(:,3);
+
+
 %% Pre Process Inputs
 AMIGO_Prep(inputs)    
 
-cprintf('*[1,0.5,0]','\n\n --->Generating data with homoscedastic constant noise');
+cprintf('*[1,0.5,0]','\n\n --->Generating data with heteroscedastic noise');
 pause(1)
 
 
 %% Generate pseudo-experimental data with noise
 AMIGO_SData(inputs)
 
-                                                     
+%save ('Step_Pseudo_random_3_experiments','inputs','results')

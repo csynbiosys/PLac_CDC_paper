@@ -131,7 +131,7 @@ inputs.nlpsol.eSS.local.solver = 'lsqnonlin'; %'nl2sol';
 inputs.nlpsol.eSS.local.finish = 'lsqnonlin'; 'nl2sol';
 inputs.nlpsol.eSS.maxeval = 20000;
 inputs.nlpsol.eSS.maxtime = 3000;
-inputs.rid.conf_ntrials=500;
+inputs.rid.conf_ntrials = 500;
 
 % Run parameter estimation
 AMIGO_PE(inputs);

@@ -2,18 +2,18 @@ function [ss_values] = Stelling_model_steady_state(theta,IPTGe)
 % Steady state expressions for variables in Stelling model
 
 kLacI = theta(1);
-k1 = theta(2);
-k_1 = theta(3);
-k2 = theta(4);
-k_2 = theta(5);
-kLac12 = theta(6);
-kC = theta(7);
-lk = theta(8);
-kd = theta(9);
-kTP1 = theta(10);
-kcat= theta(11);
-kout = theta(12);
-Km = theta(13);
+k2 = theta(2);
+kd = theta(3);
+k_2 = theta(4);
+k1 = theta(5);
+k_1 = theta(6);
+kLac12 = theta(7);
+kTP1 = theta(8);
+kcat= theta(9);
+Km = theta(10);
+kout= theta(11);
+kC = theta(12);
+lk = theta(13);
 scaleMolec=theta(14);
 
 %% Assignments

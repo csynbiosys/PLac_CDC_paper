@@ -7,38 +7,33 @@ function [exps] = load_pulse_input_experiment(number_of_replicates_per_input_cla
 % y0_init=Stelling_model_steady_state(model.par,IPTGext_max); % using 0 here as initial IPTGext value has been fixed to 0.
 y0_init= get_steady_state_from_simulation(model);
 
-% IPTGext options
-IPTGext_min_options=[5 10 600];
-IPTGext_max_options=[10 100 1000];
 
 for iexp=1:number_of_replicates_per_input_class
 
     % Randomly choosing the maximum IPTGext value to be used in the experiment
-    IPTGext_min= IPTGext_min_options(iexp);%randi([0 1000],1,1);
+    IPTGext_min= randi([0 1000],1,1);
 
     % Randomly choosing the maximum IPTGext value to be used in the experiment
-    IPTGext_max= IPTGext_max_options(iexp);%randi([0 1000],1,1);    
+    IPTGext_max= randi([0 1000],1,1);    
 
     % to avoid choosing same minimum and maximum IPTG values,pick another
     % value
-%     if (IPTGext_min==IPTGext_max)
-%        while (IPTGext_max == IPTGext_min)
-%                 % Randomly choosing the maximum IPTGext value to be used in the experiment
-%                 IPTGext_min= randi([0 1000],1,1);
-% 
-%                 % Randomly choosing the maximum IPTGext value to be used in the experiment
-%                 IPTGext_max= randi([0 1000],1,1);    
-%        end 
-%     end
-    
-  % switching time 
-  
+    if (IPTGext_min==IPTGext_max)
+       while (IPTGext_max == IPTGext_min)
+                % Randomly choosing the maximum IPTGext value to be used in the experiment
+                IPTGext_min= randi([0 1000],1,1);
+
+                % Randomly choosing the maximum IPTGext value to be used in the experiment
+                IPTGext_max= randi([0 1000],1,1);    
+       end 
+    end
+        
   % Setting up input related parameters   
     exps.exp_type{iexp} = 'fixed';
     exps.t_f{iexp}      = 3000*60;
-    exps.n_s{iexp}      = length(0:15*60:exps.t_f{iexp});                                % Number of sampling times
+    exps.n_s{iexp}      = length(0:5*60:exps.t_f{iexp});                                % Number of sampling times
     exps.exp_y0{iexp}   = y0_init;                                       %initial values of all states in the model
-    exps.t_s{iexp}      = (0:15*60:exps.t_f{iexp});                  % Sampling every 5 minutes. 
+    exps.t_s{iexp}      = (0:5*60:exps.t_f{iexp});                  % Sampling every 5 minutes. 
         
     % set if the experiment has to be a pulse-up or pulse-down     
     if(IPTGext_min > IPTGext_max)

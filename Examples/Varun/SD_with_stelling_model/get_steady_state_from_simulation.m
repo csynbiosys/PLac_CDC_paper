@@ -40,11 +40,11 @@ exps.obs_names{1}=char('Citrine_molec','Citrine_AU');
 % Observables definition
 exps.obs{1}=char('Citrine_molec=Cit','Citrine_AU=Cit_AU');
 
-% % % Adding noise to simulated data 
-% % % Definining experimental noise 
-exps.data_type ='pseudo_pos';                   % Type of data: 'pseudo'|'pseudo_pos'|'real'             
-exps.noise_type ='homo_var';                % the noise is constant for each experiment. 
-exps.std_dev{1}(1,:)= ones(1,2)*0.1;             % 10% noise
+% % % % Adding noise to simulated data 
+% % % % Definining experimental noise 
+% exps.data_type ='pseudo_pos';                   % Type of data: 'pseudo'|'pseudo_pos'|'real'             
+% exps.noise_type ='homo_var';                % the noise is constant for each experiment. 
+% exps.std_dev{1}(1,:)= ones(1,2)*0.1;             % 10% noise
 
 %setup model for simulation
 ss.model=model;
@@ -57,7 +57,7 @@ ss.plotd.plotlevel='full';                % can also take values max,medium,min,
 AMIGO_Prep(ss)    
 
 %% Generate pseudo-experimental data with noise
-Output=AMIGO_SData(ss);
+Output=AMIGO_SModel(ss);
 
 % Initial values of all variables in the system, derived from a simulation
 % run for 24 hours

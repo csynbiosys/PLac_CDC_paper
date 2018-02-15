@@ -29,8 +29,8 @@ inputs.ivpsol.senssolver='cvodes';                    % [] Sensitivities solver:
                                                       %                          'sensmat' (matlab) |
                                                       %                          'fdsens2','fdsens5' (finite differences)
                                                       
-inputs.ivpsol.rtol=1.0D-7;                            % [] IVP solver integration tolerances
-inputs.ivpsol.atol=1.0D-7; 
+inputs.ivpsol.rtol=1.0D-8;                            % [] IVP solver integration tolerances
+inputs.ivpsol.atol=1.0D-8; 
 
 
 %==================================
@@ -44,7 +44,7 @@ inputs.ivpsol.atol=1.0D-7;
 % DISPLAY OF RESULTS
 %==================================
 
-inputs.plotd.plotlevel='min';                       % [] Display of figures: 'full'|'medium'(default)|'min' |'noplot' 
+inputs.plotd.plotlevel='medium';                       % [] Display of figures: 'full'|'medium'(default)|'min' |'noplot' 
 inputs.plotd.epssave=0;                              % [] Figures may be saved in .eps (1) or only in .fig format (0) (default)
 inputs.plotd.number_max_states=8;                    % [] Maximum number of states per figure
 inputs.plotd.number_max_obs=1;                       % [] Maximum number of observables per figure
@@ -55,5 +55,5 @@ inputs.plotd.nx_contour=60;                          % [] Number of points for p
 inputs.plotd.ny_contour=60;                          %    ADVISE: >=50
 inputs.plotd.number_max_hist=8;                      % [] Maximum number of unknowns histograms per figure (multistart)
 
-inputs.nlpsol.eSS.maxeval=100;
+inputs.nlpsol.eSS.maxeval=200000;
 end

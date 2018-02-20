@@ -13,9 +13,15 @@ inputs.PEsol.id_global_theta=inputs.model.par_names(include,:);                 
 %          alpha1	Vm1     h1  Km1     d1     alpha2  d2     Kf   sc_molec
 inputs.PEsol.global_theta_min=[3.88e-5,3.88e-2,0.5,2,7.7e-3,0.2433,5.98e-5,0.012];       % Minimum allowed values for the parameters
 inputs.PEsol.global_theta_max=[0.4950,0.4950,4.9,10,0.23,6.8067,0.2449,0.0217];   % Maximum allowed values for the paramters
+inputs.PEsol.global_theta_min=[3.88e-5,0.25,0.5,2,7.7e-3,0.2433,5.98e-5,0.012];       % Minimum allowed values for the parameters
+inputs.PEsol.global_theta_max=[0.06,0.35,4.9,10,0.23,6.8067,0.2449,0.0217];   % Maximum allowed values for the paramters
 inputs.PEsol.global_theta_guess=inputs.model.par(include);    
 
-
+ %==================================
+ % COST FUNCTION RELATED DATA
+ %==================================
+inputs.PEsol.PEcost_type='lsq';                       % 'lsq' (weighted least squares default) | 'llk' (log likelihood) | 'user_PEcost' 
+inputs.PEsol.lsq_type='Q_expmax';                  % [] To be defined for llk function, 'homo' | 'homo_var' | 'hetero' 
 
 %==================================
 % NUMERICAL METHODS RELATED DATA

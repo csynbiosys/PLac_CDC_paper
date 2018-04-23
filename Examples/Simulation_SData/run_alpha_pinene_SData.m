@@ -61,7 +61,7 @@ cprintf('*[1,0.5,0]','\n\n --->Generating data with homoscedastic constant noise
 pause(1)
 clear
 alpha_pinene_PseudoData;
-inputs.exps.noise_type = 'homo_var';
+inputs.exps.noise_type = 'homo';
 inputs.exps.std_dev{1} = ones(1,5)*0.1;  % 10% noise
 
 AMIGO_SData(inputs)
